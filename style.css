@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+/* Header */
+header {
+  height: 15vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: #000;
+}
+.enter_account,
+.symbol,
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+.enter_account input {
+  width: 20%;
+  display: block;
+  height: 20%;
+  margin: 10px;
+  padding: 20px;
+  width: 120px;
+  outline: none;
+  border-radius: 100%;
+  border: 1px solid #888;
+}
+.enter_account input::placeholder {
+  text-align: center;
+}
+.enter_account_button {
+  display: block;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+/* fim do header */
+
+/* Main */
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00f;
+}
+#container-main {
+  width: 85%;
+  height: 95%;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+.transactions {
+  display: flex;
+  justify-content: space-between;
+  height: 80%;
+}
+.movements {
+  display: flex;
+  margin-left: 15px;
+  margin-top: 15px;
+  flex-direction: column;
+  width: 50%;
+  border: 2px solid #999;
+  height: 97%;
+  overflow-y: scroll;
+}
+.movement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #666;
+}
+.deposit {
+  padding: 5px;
+  background-color: rgb(21, 128, 21);
+  color: #fff;
+  margin-right: 8px;
+}
+.withdrawal {
+  padding: 5px;
+  background-color: #f00;
+  color: #fff;
+  margin-right: 8px;
+}
+.deposit_date,
+.withdrawal_date {
+  display: flex;
+  align-items: center;
+}
+.operations {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#transfer {
+  margin-top: 10px;
+}
+#transfer,
+#loan,
+#close-account {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(16, 39, 245);
+  width: 60%;
+  padding: 15px;
+  margin-bottom: 5px;
+}
+.operation-transfer,
+.operation-loan,
+.operation-closeaccount {
+  display: flex;
+  font-size: 13px;
+  justify-content: space-between;
+}
+.operation-transfer input,
+.operation-loan input,
+.operation-closeaccount input {
+  display: block;
+  height: 30px;
+  margin-bottom: 10px;
+  width: 120px;
+  outline: 0;
+  border: none;
+  border-radius: 20%;
+}
+.operation-transfer button,
+.operation-loan button,
+.operation-closeaccount button {
+  display: block;
+  height: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+footer {
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+}

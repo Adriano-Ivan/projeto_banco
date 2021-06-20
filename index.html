@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0" />
+    <title>Projeto banco</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="welcome"><h1>Bem-vindo</h1></div>
+      <div class="symbol"><h1>NATUS BANCO</h1></div>
+      <div class="enter_account">
+        <input
+          type="text"
+          class="username"
+          name="name"
+          autocomplete="off"
+          placeholder="USER"
+        />
+        <input
+          type="text"
+          class="id-user"
+          name="password"
+          autocomplete="off"
+          placeholder="ID"
+        />
+        <button class="enter_account_button">→</button>
+      </div>
+    </header>
+    <main>
+      <div id="container-main">
+        <section class="transactions">
+          <div class="movements">
+            <div class="movement">
+              <div class="deposit_date">
+                <div class="deposit">1 deposit</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+            <div class="movement">
+              <div class="withdrawal_date">
+                <div class="withdrawal">1 withdrawal</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+            <div class="movement">
+              <div class="withdrawal_date">
+                <div class="withdrawal">1 withdrawal</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+            <div class="movement">
+              <div class="withdrawal_date">
+                <div class="withdrawal">1 withdrawal</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+            <div class="movement">
+              <div class="deposit_date">
+                <div class="deposit">1 deposit</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+            <div class="movement">
+              <div class="deposit_date">
+                <div class="deposit">1 deposit</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+            <div class="movement">
+              <div class="deposit_date">
+                <div class="deposit">1 deposit</div>
+                <div class="date">17/05/2020</div>
+              </div>
+              <div class="value">R$232,32</div>
+            </div>
+          </div>
+          <div class="operations">
+            <div id="transfer">
+              <h2>Transfer money</h2>
+              <div class="operation-transfer">
+                <div class="name-receiver">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    name="name"
+                    id="receiver-name"
+                  />
+                  <div>Type the receiver's name</div>
+                </div>
+                <div class="qt-money">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    name="money"
+                    id="value-money-transfer"
+                  />
+                  <div>Type value</div>
+                </div>
+                <button class="send-money-button">→</button>
+              </div>
+            </div>
+            <div id="loan">
+              <h2>Loan money</h2>
+              <div class="operation-loan">
+                <div class="name-user">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    name="name"
+                    id="username-transfer"
+                  />
+                  <div>Type your username</div>
+                </div>
+                <div class="qt-money">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    name="money"
+                    id="value-money-loan"
+                  />
+                  <div>Type value</div>
+                </div>
+                <button class="loan-money-button">→</button>
+              </div>
+            </div>
+            <div id="close-account">
+              <h2>Transfer money</h2>
+              <div class="operation-closeaccount">
+                <div class="username-closer">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    name="name"
+                    id="username-now"
+                  />
+                  <div>Type your username</div>
+                </div>
+                <div class="pin">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    name="money"
+                    id="pin-user"
+                  />
+                  <div>Type your pin</div>
+                </div>
+                <button class="close-account-button">→</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="informations">
+          <div class="deposits"></div>
+          <div class="withdrawals"></div>
+          <div class="interest"></div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <p>Criado por Adriano Ivan</p>
+    </footer>
+  </body>
+</html>
