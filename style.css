@@ -56,6 +56,8 @@ main {
 #container-main {
   width: 85%;
   height: 95%;
+  /*opacity: 0;*/
+  border-radius: 1%;
   border: 1px solid #000;
   display: flex;
   flex-direction: column;
@@ -84,13 +86,15 @@ main {
   border-bottom: 1px solid #666;
 }
 .deposit {
-  padding: 5px;
+  padding: 10px;
   background-color: rgb(21, 128, 21);
   color: #fff;
+  border-radius: 10%;
   margin-right: 8px;
 }
 .withdrawal {
-  padding: 5px;
+  padding: 10px;
+  border-radius: 10%;
   background-color: #f00;
   color: #fff;
   margin-right: 8px;
@@ -115,9 +119,10 @@ main {
 #close-account {
   display: flex;
   flex-direction: column;
-  background-color: rgb(16, 39, 245);
+  background-color: rgb(50, 65, 204);
   width: 60%;
   padding: 15px;
+  border-radius: 10%;
   margin-bottom: 5px;
 }
 .operation-transfer,
@@ -148,6 +153,43 @@ main {
   background-color: transparent;
   border: none;
 }
+.informations {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.2rem;
+}
+.informations button {
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 8px;
+}
+.deposits-total span,
+.interest-total span,
+.withdrawals-total span {
+  margin-left: 10px;
+}
+.deposits-total span,
+.interest-total span {
+  color: green;
+}
+.withdrawals-total span {
+  color: #f00;
+  margin-left: 10px;
+}
+.balance {
+  display: flex;
+  justify-content: space-between;
+  width: 45%;
+}
+.balance .message {
+  display: flex;
+  flex-direction: column;
+}
+
 footer {
   display: flex;
   justify-content: center;
