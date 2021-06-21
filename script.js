@@ -115,3 +115,17 @@ logAccountButton.addEventListener("click", function () {
     }, 200);
   }
 });
+
+transferMoneyButton.addEventListener("click", function () {
+  const receiver = accounts.find((acc) => acc.usr === transferUserInput.value);
+
+  if (receiver && Number(valueTransferInput.value) > 0) {
+    setTimeout(function () {
+      actualAccount.movements.push(-Number(valueTransferInput.value));
+      receiver.movements.push(Number(valueTransferInput.value));
+      transferUserInput.value = "";
+      valueTransferInput.value = "";
+      updateUI(actualAccount);
+    }, 350);
+  }
+});
