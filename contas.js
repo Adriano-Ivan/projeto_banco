@@ -6,7 +6,7 @@ const account1 = {
 };
 const account2 = {
   owner: "Amanda Jellis",
-  movements: [23, -8, 250, 35, -29, -76, 245, 67, 29],
+  movements: [23, -8, 298, 35, -29, -76, 245, 67, 29],
   interestRate: 1.2,
   pin: 2222,
 };

@@ -8,12 +8,13 @@ const closeAccountButton = document.querySelector(".close-account-button");
 const sortValuesButton = document.querySelector(".sort-values-button");
 
 // Elements
+const containerMain = document.querySelector("#container-main");
 const movementsArea = document.querySelector(".movements");
 const totalDeposits = document.querySelector(".deposits-total span");
 const totalWithdrawals = document.querySelector(".withdrawals-total span");
 const totalInterest = document.querySelector(".interest-total span");
 const balanceArea = document.querySelector(".balance");
-const welcomeArea = document.querySelector(".welcome");
+const welcomeArea = document.querySelector(".welcome h1");
 const valueBalanceArea = document.querySelector(".value-balance");
 
 // Inputs
@@ -47,6 +48,7 @@ const displayMovements = function (movs) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((ac, mov) => ac + mov, 0);
+  valueBalanceArea.textContent = "";
   valueBalanceArea.textContent = `R$ ${acc.balance}`;
 };
 
@@ -72,6 +74,44 @@ const calcDisplaySummary = function (acc) {
   totalInterest.textContent = `R$ ${interest}`;
 };
 
-displayMovements(account1.movements);
-calcDisplayBalance(account1);
-calcDisplaySummary(account1);
+const updateUI = function (acc) {
+  displayMovements(acc.movements);
+  calcDisplaySummary(acc);
+  calcDisplayBalance(acc);
+};
+// Variables
+let actualAccount;
+
+// Creation of users
+const usernamesCreation = function (accs) {
+  accs.forEach((acc) => {
+    acc.usr = acc.owner
+      .trim()
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word[0])
+      .join("");
+  });
+};
+usernamesCreation(accounts);
+
+// Listeners
+logAccountButton.addEventListener("click", function () {
+  const userInput = loginInput.value;
+  const id = idInput.value;
+
+  actualAccount = accounts.find((acc) => acc.usr === userInput);
+  if (actualAccount?.pin === Number(id)) {
+    setTimeout(function () {
+      containerMain.style.opacity = 100;
+      welcomeArea.textContent = `Bem-vindo,  ${
+        actualAccount.owner.split(" ")[0]
+      }`;
+      loginInput.value = "";
+      idInput.value = "";
+      loginInput.blur();
+      loginInput.blur();
+      updateUI(actualAccount);
+    }, 200);
+  }
+});
