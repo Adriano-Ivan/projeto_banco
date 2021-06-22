@@ -130,17 +130,38 @@ transferMoneyButton.addEventListener("click", function () {
   }
 });
 
-loanMoneyButton.addEventListener('click', function() {
+loanMoneyButton.addEventListener("click", function () {
   const confirmUserName = loanUserInput.value;
   const valueOrdered = Number(valueLoanInput.value);
   console.log(valueOrdered);
-  if(confirmUserName === actualAccount.usr && actualAccount.movements.some((mov) => mov >= ((valueOrdered * 10) / 100)) && valueOrdered > 0) {
-    setTimeout(function() {
+  if (
+    confirmUserName === actualAccount.usr &&
+    actualAccount.movements.some((mov) => mov >= (valueOrdered * 10) / 100) &&
+    valueOrdered > 0
+  ) {
+    setTimeout(function () {
       actualAccount.movements.push(valueOrdered);
       updateUI(actualAccount);
     }, 500);
   }
 
-  loanUserInput.value = '';
-  valueLoanInput.value = '';
-})
+  loanUserInput.value = "";
+  valueLoanInput.value = "";
+});
+
+closeAccountButton.addEventListener("click", function () {
+  if (
+    closeUserInput.value === actualAccount.usr &&
+    Number(closePinUserInput.value) === actualAccount.pin
+  ) {
+    const indexAccount = accounts.findIndex(
+      (acc) =>
+        acc.usr === closeUserInput.value &&
+        acc.pin === Number(closePinUserInput.value)
+    );
+
+    accounts.splice(indexAccount);
+
+    containerMain.style.opacity = 0;
+  }
+});
