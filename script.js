@@ -126,6 +126,21 @@ transferMoneyButton.addEventListener("click", function () {
       transferUserInput.value = "";
       valueTransferInput.value = "";
       updateUI(actualAccount);
-    }, 350);
+    }, 500);
   }
 });
+
+loanMoneyButton.addEventListener('click', function() {
+  const confirmUserName = loanUserInput.value;
+  const valueOrdered = Number(valueLoanInput.value);
+  console.log(valueOrdered);
+  if(confirmUserName === actualAccount.usr && actualAccount.movements.some((mov) => mov >= ((valueOrdered * 10) / 100)) && valueOrdered > 0) {
+    setTimeout(function() {
+      actualAccount.movements.push(valueOrdered);
+      updateUI(actualAccount);
+    }, 500);
+  }
+
+  loanUserInput.value = '';
+  valueLoanInput.value = '';
+})
