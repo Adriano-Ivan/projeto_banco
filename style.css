@@ -191,6 +191,13 @@ main {
   flex-direction: column;
 }
 
+.value-balance {
+  font-size: 19px;
+}
+.show-date {
+  margin-top: 10px;
+}
+/* Fim do main*/
 footer {
   display: flex;
   justify-content: center;

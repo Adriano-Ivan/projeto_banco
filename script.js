@@ -16,6 +16,7 @@ const totalInterest = document.querySelector(".interest-total span");
 const balanceArea = document.querySelector(".balance");
 const welcomeArea = document.querySelector(".welcome h1");
 const valueBalanceArea = document.querySelector(".value-balance");
+const dateBalanceArea = document.querySelector(".show-date");
 
 // Inputs
 const loginInput = document.querySelector(".username");
@@ -28,18 +29,51 @@ const closeUserInput = document.querySelector("#username-now");
 const closePinUserInput = document.querySelector("#pin-user");
 
 // Functions
-const displayMovements = function (movs) {
+const formatDates = function (date, localeDefined) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  /*
+  const dateDay = `${date.getDate()}`.padStart(2, 0);
+  const dateMonth = `${date.getMonth() + 1}`.padStart(2, 0);
+  const dateYear = `${date.getFullYear()}`;
+  */
+
+  //const dateFormatted = `${dateDay}/${dateMonth}/${dateYear}`;
+
+  return new Intl.DateTimeFormat(localeDefined).format(date);
+};
+
+const formatCurrency = function (value, currency, locale) {
+  const currencyFormatted = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(Math.abs(value));
+  return currencyFormatted;
+};
+
+const displayMovements = function (acc) {
   movementsArea.innerHTML = "";
 
-  movs.forEach(function (mov, i) {
+  acc.movements.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
+    const dateFormatted = formatDates(
+      new Date(acc.movementsDates[i]),
+      actualAccount.locale
+    );
+    const movementFormatted = formatCurrency(mov, acc.currency, acc.locale);
     const html = `<div class="movement">
     <div class="${type}_date">
       <div class="${type}">${i + 1} ${type}</div>
-      <div class="date">17/05/2020</div>
+      <div class="date">${dateFormatted}</div>
     </div>
-    <div class="value">R$${mov}</div>
+    <div class="value">${movementFormatted}</div>
   </div>`;
 
     movementsArea.insertAdjacentHTML("afterbegin", html);
@@ -48,20 +82,29 @@ const displayMovements = function (movs) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((ac, mov) => ac + mov, 0);
+  const valueFormattedToLocale = formatCurrency(
+    acc.balance,
+    acc.currency,
+    acc.locale
+  );
   valueBalanceArea.textContent = "";
-  valueBalanceArea.textContent = `R$ ${acc.balance}`;
+  valueBalanceArea.textContent = `${valueFormattedToLocale}`;
+  valueBalanceArea.style.fontSize = "24px";
+  valueBalanceArea.style.color = "darkgreen";
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((ac, mov) => ac + mov, 0);
-  totalDeposits.textContent = `R$ ${incomes}`;
+  const incomesFormatted = formatCurrency(incomes, acc.currency, acc.locale);
+  totalDeposits.textContent = `${incomesFormatted}`;
 
   const out = acc.movements
     .filter((mov) => mov < 0)
     .reduce((ac, mov) => ac + mov, 0);
-  totalWithdrawals.textContent = `R$ ${Math.abs(out)}`;
+  const outFormatted = formatCurrency(out, acc.currency, acc.locale);
+  totalWithdrawals.textContent = `${outFormatted}`;
 
   const interest = acc.movements
     .filter((mov) => mov > 0)
@@ -71,11 +114,12 @@ const calcDisplaySummary = function (acc) {
       return interest >= 1;
     })
     .reduce((ac, interest) => ac + interest, 0);
-  totalInterest.textContent = `R$ ${interest}`;
+  const interestFormatted = formatCurrency(interest, acc.currency, acc.locale);
+  totalInterest.textContent = `${interestFormatted}`;
 };
 
 const updateUI = function (acc) {
-  displayMovements(acc.movements);
+  displayMovements(acc);
   calcDisplaySummary(acc);
   calcDisplayBalance(acc);
 };
@@ -109,6 +153,19 @@ logAccountButton.addEventListener("click", function () {
       }`;
       loginInput.value = "";
       idInput.value = "";
+      const now = new Date();
+      const options = {
+        hour: "numeric",
+        minute: "numeric",
+        day: "numeric",
+        month: "numeric",
+        //weekday: "long",
+        year: "numeric",
+      };
+      dateBalanceArea.textContent = `Last login: ${new Intl.DateTimeFormat(
+        actualAccount.locale,
+        options
+      ).format(now)}`;
       loginInput.blur();
       loginInput.blur();
       updateUI(actualAccount);
@@ -119,10 +176,16 @@ logAccountButton.addEventListener("click", function () {
 transferMoneyButton.addEventListener("click", function () {
   const receiver = accounts.find((acc) => acc.usr === transferUserInput.value);
 
-  if (receiver && Number(valueTransferInput.value) > 0) {
+  if (
+    receiver &&
+    Number(valueTransferInput.value) > 0 &&
+    receiver.usr !== actualAccount.usr
+  ) {
     setTimeout(function () {
       actualAccount.movements.push(-Number(valueTransferInput.value));
+      actualAccount.movementsDates.push(new Date().toISOString());
       receiver.movements.push(Number(valueTransferInput.value));
+      receiver.movementsDates.push(new Date().toISOString());
       transferUserInput.value = "";
       valueTransferInput.value = "";
       updateUI(actualAccount);
@@ -165,3 +228,11 @@ closeAccountButton.addEventListener("click", function () {
     containerMain.style.opacity = 0;
   }
 });
+
+/*
+// UNIT, PERCENT, CURRENCY (STYLE OPTIONS FOR NUMBER FORMAT)
+const num = 232323;
+console.log(new Intl.NumberFormat("pt-BR").format(num));
+console.log(new Intl.NumberFormat("en-US").format(num));
+console.log(new Intl.NumberFormat("de-DE").format(num));
+*/
