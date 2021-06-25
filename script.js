@@ -17,6 +17,7 @@ const balanceArea = document.querySelector(".balance");
 const welcomeArea = document.querySelector(".welcome h1");
 const valueBalanceArea = document.querySelector(".value-balance");
 const dateBalanceArea = document.querySelector(".show-date");
+const timeLeftArea = document.querySelector(".time-logout span");
 
 // Inputs
 const loginInput = document.querySelector(".username");
@@ -29,6 +30,30 @@ const closeUserInput = document.querySelector("#username-now");
 const closePinUserInput = document.querySelector("#pin-user");
 
 // Functions
+
+const startLogoutTimer = function () {
+  let time = 120;
+
+  const timer = function () {
+    const minute = `${Math.trunc(time / 60)}`.padStart(2, 0);
+    const seconds = `${time % 60}`.padStart(2, 0);
+
+    timeLeftArea.textContent = `${minute}:${seconds}`;
+
+    if (time === 0) {
+      containerMain.style.opacity = 0;
+      welcomeArea.textContent = "Log in to get started";
+      clearInterval(executionTimer);
+    }
+
+    time--;
+  };
+
+  timer();
+  const executionTimer = setInterval(timer, 1000);
+  return executionTimer;
+};
+
 const formatDates = function (date, localeDefined) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -124,7 +149,7 @@ const updateUI = function (acc) {
   calcDisplayBalance(acc);
 };
 // Variables
-let actualAccount;
+let actualAccount, verifyTimerSituation;
 
 // Creation of users
 const usernamesCreation = function (accs) {
@@ -168,6 +193,9 @@ logAccountButton.addEventListener("click", function () {
       ).format(now)}`;
       loginInput.blur();
       loginInput.blur();
+
+      if (verifyTimerSituation) clearInterval(verifyTimerSituation);
+      verifyTimerSituation = startLogoutTimer();
       updateUI(actualAccount);
     }, 200);
   }
@@ -189,6 +217,8 @@ transferMoneyButton.addEventListener("click", function () {
       transferUserInput.value = "";
       valueTransferInput.value = "";
       updateUI(actualAccount);
+      clearInterval(verifyTimerSituation);
+      verifyTimerSituation = startLogoutTimer();
     }, 500);
   }
 });
@@ -204,7 +234,10 @@ loanMoneyButton.addEventListener("click", function () {
   ) {
     setTimeout(function () {
       actualAccount.movements.push(valueOrdered);
+      actualAccount.movementsDates.push(new Date().toISOString());
       updateUI(actualAccount);
+      clearInterval(verifyTimerSituation);
+      verifyTimerSituation = startLogoutTimer();
     }, 500);
   }
 

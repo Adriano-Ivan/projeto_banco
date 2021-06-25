@@ -35,6 +35,9 @@ header {
 .enter_account input::placeholder {
   text-align: center;
 }
+.enter_account input:focus {
+  text-align: center;
+}
 .enter_account_button {
   display: block;
   border: none;
@@ -196,6 +199,10 @@ main {
 }
 .show-date {
   margin-top: 10px;
+}
+.time-logout span {
+  display: block;
+  margin-top: 8px;
 }
 /* Fim do main*/
 footer {
