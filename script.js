@@ -29,6 +29,10 @@ const valueLoanInput = document.querySelector("#value-money-loan");
 const closeUserInput = document.querySelector("#username-now");
 const closePinUserInput = document.querySelector("#pin-user");
 
+// Variables
+let actualAccount, verifyTimerSituation, sortedOrNot;
+sortedOrNot = false;
+
 // Functions
 
 const startLogoutTimer = function () {
@@ -85,7 +89,11 @@ const formatCurrency = function (value, currency, locale) {
 const displayMovements = function (acc) {
   movementsArea.innerHTML = "";
 
-  acc.movements.forEach(function (mov, i) {
+  const movs = sortedOrNot
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     const dateFormatted = formatDates(
@@ -148,9 +156,13 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
   calcDisplayBalance(acc);
 };
-// Variables
-let actualAccount, verifyTimerSituation;
 
+// Sort
+
+sortValuesButton.addEventListener("click", function () {
+  sortedOrNot = !sortedOrNot;
+  updateUI(actualAccount);
+});
 // Creation of users
 const usernamesCreation = function (accs) {
   accs.forEach((acc) => {
